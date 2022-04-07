@@ -1,52 +1,10 @@
-export enum Modifier {
-  PRIVATE = "private",
-  PUBLIC = "public",
-  STATIC = "static",
-  FINAL = "final",
-}
-
-interface JavaParam {
-  type: string;
-  name: string;
-}
-
-interface ClassField extends JavaParam {
-  comment?: string;
-  modifiers: Modifier[];
-  annotations: string[];
-}
-
-const partialImmutableField = () => ({
-  modifiers: [Modifier.PRIVATE, Modifier.FINAL],
-  annotations: [] as string[],
-});
-
-export const immutableField = (
-  partialField: Partial<ClassField> & JavaParam
-): ClassField => {
-  return {...partialImmutableField(), ...partialField};
-};
-
-interface MethodSignature {
-  name: string;
-  comment?: string;
-  modifiers: Modifier[];
-  output: string;
-  inputs: JavaParam[];
-}
-
-interface ClassModel {
-  name: string;
-  comment?: string;
-  annotations: string[];
-  fields: ClassField[];
-  methods: MethodSignature[];
-}
-
-export const modifyModel = (delta: Partial<ClassModel>, model: ClassModel) => ({
-  ...model,
-  ...delta,
-});
+import {
+  Modifier,
+  ClassField,
+  JavaParam,
+  ClassModel,
+  MethodSignature,
+} from "./domain";
 
 const formatStep = "  ";
 const formatStep2 = formatStep.repeat(2);
@@ -54,9 +12,9 @@ const formatStep2 = formatStep.repeat(2);
 const commentToStr = (comment?: string) =>
   comment ? "//" + comment + "\n" : "";
 
-const annotationToStr = (annotation: string) => "@" + annotation;
+export const annotationToStr = (annotation: string) => "@" + annotation;
 const annotationsToStr = (annotations: string[]) =>
-  annotations.map((a) => annotationToStr(a) + "\n");
+  annotations.map((a) => annotationToStr(a) + "\n").join("");
 
 const paramToStr = (param: JavaParam) => param.type + " " + param.name;
 

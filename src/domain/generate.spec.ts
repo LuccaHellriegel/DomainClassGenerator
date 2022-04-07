@@ -1,5 +1,7 @@
 import {expect, test} from "vitest";
-import {classModelToStr, immutableField, Modifier} from "./model";
+import {classModelToStr} from "./generate";
+import {immutableField} from "./create";
+import {Modifier} from "./domain";
 
 test("test", () => {
   const result = classModelToStr({
