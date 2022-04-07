@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import { defaultImmutableField, defaultJavaParam, defaultMethod } from "../domain/create";
+import { defaultJavaParam, defaultMethod } from "../domain/create";
 import { JavaParam, MethodSignature, Modifier } from "../domain/domain";
 import { methodSignatureToStr } from "../domain/generate";
 import { useClassModel } from "./ClassModelContext";
